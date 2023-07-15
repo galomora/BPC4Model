@@ -76,4 +76,7 @@ Components diagram for the Mobile App
 ### web-spa-component
 Components diagram for the web single page app
 
+## Considerations
 
+All communications shall use secure protocols, HTTPS
+All credentials and passwords shall be stored encrypted
