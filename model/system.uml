@@ -1,0 +1,76 @@
+@startuml(id=internetBankingContextView)
+scale max 2000x2000
+title Internet Banking System - System Context
+caption Banking system view
+
+skinparam {
+  shadowing false
+  arrowColor #707070
+  actorBorderColor #707070
+  componentBorderColor #707070
+  rectangleBorderColor #707070
+  noteBackgroundColor #ffffff
+  noteBorderColor #707070
+}
+rectangle 9 <<Person>> #dddddd [
+  Bank Client
+  --
+  Bank Client
+]
+rectangle 1 <<Software System>> #dddddd [
+  Banking Core System
+  --
+  Banking Core System
+]
+rectangle 4 <<Software System>> #dddddd [
+  Internet Banking System
+  --
+  Internet Banking System
+]
+rectangle 8 <<Software System>> #dddddd [
+  Monitoring System
+  --
+  Monitoring System: Prometheus
+]
+rectangle 3 <<Software System>> #dddddd [
+  Notifications System
+  --
+  Notifications System
+]
+rectangle 5 <<Software System>> #dddddd [
+  OAuth2 Authentication Provider
+  --
+  OAuth2 Authentication
+  Provider
+]
+rectangle 6 <<Software System>> #dddddd [
+  Onboarding Provider
+  --
+  Onboarding Provider
+]
+rectangle 7 <<Software System>> #dddddd [
+  Services Orchestrator
+  --
+  Services Orchestrator:
+  Kubernetes / Spring Cloud /
+  AWS EKS
+]
+rectangle 2 <<Software System>> #dddddd [
+  User Information System
+  --
+  User Information System
+]
+9 .[#707070].> 4 : Get user info
+9 .[#707070].> 4 : Make payment
+9 .[#707070].> 4 : Get movements
+9 .[#707070].> 4 : Make transfer
+4 .[#707070].> 1 : Make transactions in
+4 .[#707070].> 1 : Get user Info from
+4 .[#707070].> 3 : Send notifications using
+4 .[#707070].> 5 : Authenticates user using
+4 .[#707070].> 6 : Registers new users and devices using
+4 .[#707070].> 2 : Get user Info from
+8 .[#707070].> 7 : Executes system monitoring
+3 .[#707070].> 9 : Delivers notifications to
+7 .[#707070].> 4 : Controls services orchestration
+@enduml

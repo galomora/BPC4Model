@@ -1,0 +1,152 @@
+@startuml(id=Notifications_App_Component_View)
+scale max 2000x2000
+title Internet Banking System - Notifications App - Components
+caption Notifications App Component View
+
+skinparam {
+  shadowing false
+  arrowColor #707070
+  actorBorderColor #707070
+  componentBorderColor #707070
+  rectangleBorderColor #707070
+  noteBackgroundColor #ffffff
+  noteBorderColor #707070
+}
+rectangle 29 <<Container>> #dddddd [
+  API Gateway
+  --
+  API Gateway: AWS API Gateway
+  / Spring Cloud
+]
+rectangle 25 <<Container>> #dddddd [
+  Audit Database
+  --
+  Audit Database: SQL DB
+]
+rectangle 9 <<Person>> #dddddd [
+  Bank Client
+  --
+  Bank Client
+]
+rectangle 33 <<Container>> #dddddd [
+  Banking Core Facade App
+  --
+  Banking Core Facade App:
+  Spring Boot
+]
+rectangle 1 <<Software System>> #dddddd [
+  Banking Core System
+  --
+  Banking Core System
+]
+rectangle 24 <<Container>> #dddddd [
+  Mobile App
+  --
+  Mobile App: Flutter/Apache
+  Cordova/React Native
+]
+rectangle 8 <<Software System>> #dddddd [
+  Monitoring System
+  --
+  Monitoring System: Prometheus
+]
+rectangle 31 <<Container>> #dddddd [
+  Movements App
+  --
+  Movements App: Spring Boot
+]
+rectangle 3 <<Software System>> #dddddd [
+  Notifications System
+  --
+  Notifications System
+]
+rectangle 28 <<Container>> #dddddd [
+  Notifications sender App
+  --
+  Queues notifications: Java,
+  Messaging suite, Spring Boot
+]
+rectangle 5 <<Software System>> #dddddd [
+  OAuth2 Authentication Provider
+  --
+  OAuth2 Authentication
+  Provider
+]
+rectangle 6 <<Software System>> #dddddd [
+  Onboarding Provider
+  --
+  Onboarding Provider
+]
+rectangle 7 <<Software System>> #dddddd [
+  Services Orchestrator
+  --
+  Services Orchestrator:
+  Kubernetes / Spring Cloud /
+  AWS EKS
+]
+rectangle 26 <<Container>> #dddddd [
+  Top clients Database
+  --
+  Top clients Database: High
+  Availability Database Cluster
+]
+rectangle 32 <<Container>> #dddddd [
+  Transfer App
+  --
+  Transfer App: Spring Boot
+]
+rectangle 30 <<Container>> #dddddd [
+  User Info App
+  --
+  User Info App: Spring Boot
+]
+rectangle 2 <<Software System>> #dddddd [
+  User Information System
+  --
+  User Information System
+]
+rectangle 23 <<Container>> #dddddd [
+  Web Single Page App
+  --
+  Web Single Page App:
+  React/Angular
+]
+package "Notifications App" <<Container>> {
+  component 89 <<Component>> #dddddd [
+    Notifications Rest Controller
+    --
+    Notifications Rest Controller
+  ]
+  component 90 <<Component>> #dddddd [
+    Notifications Sender App Client
+    --
+    Notifications Sender App
+    Client
+  ]
+}
+29 .[#707070].> 31 : Publish services provided by
+29 .[#707070].> 89 : Publish services provided by
+29 .[#707070].> 32 : Publish services provided by
+29 .[#707070].> 30 : Publish services provided by
+9 .[#707070].> 24 : Uses the mobile app to make transactions, query movements
+9 .[#707070].> 23 : Uses the web single page app to make transactions, query movements
+33 .[#707070].> 1 : Query movements from 
+33 .[#707070].> 1 : Make transactions in 
+24 .[#707070].> 29 : Make API service calls to get user information, execute transactions, query movements
+24 .[#707070].> 5 : Authenticates user using Authorization Code Flow with Proof Key for Code Exchange
+24 .[#707070].> 6 : Registers new users and devices using
+8 .[#707070].> 7 : Executes system monitoring
+31 .[#707070].> 25 : Stores transaction history 
+31 .[#707070].> 33 : Query movements from 
+89 .[#707070].> 90 : Requests notifications using
+90 .[#707070].> 28 : Send notification request messages to
+3 .[#707070].> 9 : Delivers notifications to
+28 .[#707070].> 3 : Queues notifications and requests them to
+32 .[#707070].> 25 : Stores transaction history 
+32 .[#707070].> 33 : Make transactions in 
+30 .[#707070].> 33 : Gets user info from 
+30 .[#707070].> 26 : Stores top clients info in high availability DB 
+30 .[#707070].> 2 : Gets user information from 
+23 .[#707070].> 29 : Make API service calls to get user information, execute transactions, query movements
+23 .[#707070].> 5 : Authenticates user using Authorization Code Flow with Proof Key for Code Exchange
+@enduml

@@ -26,14 +26,18 @@ public class ComponentsBuilder {
     private void createTransferAppComponents (Workspace workspace) {
         Container transferAppContainer = ComponentsFinder.getInternetBankingContainerByName(workspace, InternetBankingContainerName.TRANSFER_APP);
         Container APIGatewayContainer = ComponentsFinder.getInternetBankingContainerByName(workspace, InternetBankingContainerName.API_GATEWAY);
+        Container databaseContainer = ComponentsFinder.getInternetBankingContainerByName(workspace, InternetBankingContainerName.AUDIT_DB);
 
         Component restController = transferAppContainer.addComponent("Transfer Rest Controller", "Transfer Rest Controller");
         Component transferAppLogicComponent = transferAppContainer.addComponent("Transfer App Logic Component", "Transfer App Logic Component");
         Component bankingCoreFacadeClient = transferAppContainer.addComponent("Banking Core Facade Client", "Banking Core Facade Client");
+        Component auditComponent = transferAppContainer.addComponent("Audit component","Audit component");
 
         APIGatewayContainer.uses(restController, "Publish services provided by");
         restController.uses(transferAppLogicComponent, "Makes transfers using");
         transferAppLogicComponent.uses(bankingCoreFacadeClient, "Makes transfers using");
+        transferAppLogicComponent.uses(auditComponent, "Creates audit records using");
+        auditComponent.uses(databaseContainer, "Creates audit records using");
         Container bankingCoreFacadeAppContainer = ComponentsFinder.getInternetBankingContainerByName(workspace,
                 InternetBankingContainerName.BANKING_CORE_FACADE_APP);
         bankingCoreFacadeClient.uses(bankingCoreFacadeAppContainer, "Makes transfers using");
@@ -43,13 +47,17 @@ public class ComponentsBuilder {
     private void createMovementsAppComponents (Workspace workspace) {
         Container movementsAppContainer = ComponentsFinder.getInternetBankingContainerByName(workspace, InternetBankingContainerName.MOVEMENTS_APP);
         Container APIGatewayContainer = ComponentsFinder.getInternetBankingContainerByName(workspace, InternetBankingContainerName.API_GATEWAY);
+        Container databaseContainer = ComponentsFinder.getInternetBankingContainerByName(workspace, InternetBankingContainerName.AUDIT_DB);
 
         Component restController = movementsAppContainer.addComponent("Movements Rest Controller", "Movements Rest Controller");
         Component bankingCoreFacadeClient = movementsAppContainer.addComponent("Banking Core Facade Client", "Banking Core Facade Client");
         Component movementsAppLogicComponent = movementsAppContainer.addComponent("Movements App Logic Component", "Movements App Logic Component");
+        Component auditComponent = movementsAppContainer.addComponent("Audit component","Audit component");
 
         APIGatewayContainer.uses(restController, "Publish services provided by");
         restController.uses(movementsAppLogicComponent, "Queries movements using");
+        movementsAppLogicComponent.uses(auditComponent, "Creates audit records using");
+        auditComponent.uses(databaseContainer, "Creates audit records using");
         movementsAppLogicComponent.uses(bankingCoreFacadeClient, "Queries movements using");
         Container bankingCoreFacadeAppContainer = ComponentsFinder.getInternetBankingContainerByName(workspace,
                 InternetBankingContainerName.BANKING_CORE_FACADE_APP);

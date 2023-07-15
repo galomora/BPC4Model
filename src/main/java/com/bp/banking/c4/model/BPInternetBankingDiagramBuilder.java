@@ -33,6 +33,10 @@ public class BPInternetBankingDiagramBuilder {
                 SoftwareSystemName.AUTH_SYSTEM.getDescription());
         SoftwareSystem onboardingSystem = model.addSoftwareSystem(SoftwareSystemName.ONBOARDING_SYSTEM.getName(),
                 SoftwareSystemName.ONBOARDING_SYSTEM.getDescription());
+        SoftwareSystem servicesOrchestrationSystem = model.addSoftwareSystem(SoftwareSystemName.SERVICES_ORCHESTRATION_SYSTEM.getName(),
+                SoftwareSystemName.SERVICES_ORCHESTRATION_SYSTEM.getDescription());
+        SoftwareSystem monitoringSystem = model.addSoftwareSystem(SoftwareSystemName.MONITORING_SYSTEM.getName(),
+                SoftwareSystemName.MONITORING_SYSTEM.getDescription());
 
         Person user = model.addPerson(PersonName.BANK_CLIENT.getName(), PersonName.BANK_CLIENT.getDescription() );
         user.uses(internetBankingSystem, "Get user info");
@@ -47,6 +51,9 @@ public class BPInternetBankingDiagramBuilder {
         internetBankingSystem.uses(authSystem, "Authenticates user using");
         internetBankingSystem.uses(onboardingSystem, "Registers new users and devices using");
         notificationsSystem.delivers(user, "Delivers notifications to");
+
+        servicesOrchestrationSystem.uses(internetBankingSystem, "Controls services orchestration");
+        monitoringSystem.uses(servicesOrchestrationSystem, "Executes system monitoring");
 
         return workspace;
     }

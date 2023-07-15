@@ -53,6 +53,7 @@ public class ViewsBuilder {
                 SoftwareSystemName.INTERNET_BANKING_SYSTEM.getName());
         ContainerView containerView = workspace.getViews().createContainerView(internetBankingSystem,
                 "Internet Banking System Container View", "Internet Banking System Container View" );
+        containerView.setPaperSize(PaperSize.A3_Landscape);
         containerView.addAllContainers();
         containerView.addAllSoftwareSystems();
         containerView.addAllPeople();

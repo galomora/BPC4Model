@@ -6,7 +6,9 @@ public enum SoftwareSystemName {
     NOTIFICATIONS_SYSTEM ("Notifications System", "Notifications System"),
     INTERNET_BANKING_SYSTEM ("Internet Banking System", "Internet Banking System"),
     AUTH_SYSTEM ("OAuth2 Authentication Provider", "OAuth2 Authentication Provider"),
-    ONBOARDING_SYSTEM ("Onboarding Provider", "Onboarding Provider");
+    ONBOARDING_SYSTEM ("Onboarding Provider", "Onboarding Provider"),
+    SERVICES_ORCHESTRATION_SYSTEM ("Services Orchestrator", "Services Orchestrator: Kubernetes / Spring Cloud / AWS EKS "),
+    MONITORING_SYSTEM ("Monitoring System", "Monitoring System: Prometheus");
 
     private String name;
     private String description;
